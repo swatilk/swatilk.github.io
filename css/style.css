@@ -1,0 +1,315 @@
+/*font family*/
+body {
+  font-family: 'PT Sans', sans-serif;
+  font-weight: 200;
+  font-size: 16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+#name {
+  font-weight: bolder;
+  font-size: 45px;
+  background-color: #337ab7;
+  color: #ffffff;
+  padding: 5px 17px;
+  border-radius: 3px;
+  display: inline-block;
+  text-align: center;
+  border-left: solid #f7464a; 
+  border-right: solid #46bfbd;
+}
+
+.role {
+  font-size: 24px;
+  color: #337ab7;
+  display: block;
+}
+
+#header, #workExperience, #education, #skillsCanvas, #projects, #map-div, #topContacts{
+  margin-bottom: 2%;
+  margin-top: 2.5%;
+}
+
+#topContacts ul{
+  margin-top: 2%;
+}
+
+#topContacts ul li {
+  display: block;
+  text-decoration: none;
+  position: absolute;
+  top: 50%;
+}
+
+#topContacts .contact-item {
+  display: block;
+  text-decoration: none;
+  border-bottom: solid;
+  border-width: 1px;
+  border-color: #afafaf;
+}
+
+#topContacts .contact-item i {
+  margin-right: 2%;
+}
+
+#topContacts .contact-item span {
+  margin-left: 2%;
+}
+
+
+hr {
+  border-width: 1px;
+  border-color: #afafaf;
+}
+
+#main-nav {
+  top: 25%;
+  bottom:70%;
+  position: fixed;
+  left:50px;
+  z-index: 999;
+  font-size: 18px;
+  width:15%;
+}
+  
+#main-nav ul li{
+  list-style-type: square;
+  margin-bottom: 10%;
+  word-wrap: break-word;
+}
+
+#skillsCanvas {
+  float: left;
+}
+
+/*to display headings and icons on the same line */
+#workExperience h2,#projects h2,#education h2,#lets-connect h2,#skills h2, em h4, #topContacts h2 {
+  display: inline;
+  margin-bottom: 5em;
+  margin-top: 2em;
+  border-bottom: solid;
+  border-width: 2px;
+  border-color: #000000;
+  margin-left: 3%;
+}
+
+#header,#workExperience,#skillsCanvas,#projects,#education,#map-div {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#map-div h2 {
+  display: inline;
+  margin-bottom: 2em;
+  margin-top: 2em;
+  margin-left: 3%;
+  
+}
+
+#skills h2 {
+  display: inline;
+  margin-bottom: 2em;
+  margin-top: 2em;
+  margin-left: 3%;
+}
+
+/* margin for the headings*/
+#projects,#education,#lets-connect,#map-div, #skills {
+  margin-top: 2em;
+}
+
+.work-title, .project-title, .school-name, .online-name {
+  text-transform: capitalize;
+  font-size: 24px;
+}
+
+.work-employer {
+  font-size: 18px;
+}
+.work-employer, .project-dates, .school-date, .online-date {
+  color: #337ab7;
+}
+
+#skills {
+  max-width: 50%;
+}
+
+/*styling the project images*/
+.project-image {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #afafaf;
+}
+
+/*display title and icon on same line for "online classes"*/
+#education h3 {
+  display: inline;
+}
+
+/* display the link the  next line of the heading "online classes"*/
+#education a {
+  display: block;
+}
+
+/*media queries */
+@media only screen and (min-width:1024px){
+  #map {
+    display: block;
+    height: 100%;
+    margin: 0 2%;
+  }
+
+  #map-div {
+    height: 400px;
+    padding-bottom: 5%;
+  }
+
+  #dropDown-nav {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 901px) and (max-width: 1023px){
+  #map {
+  display: block;
+  height: 100%;
+  margin: 0 2%;
+  }
+
+  #map-div {
+  height: 400px;
+  padding-bottom: 5%;
+  }
+
+  #dropDown-nav {
+    display: none;
+  }
+
+}
+
+@media only screen and (min-width: 751px) and (max-width: 900px){
+  #map {
+    display: block;
+    height: 100%;
+    margin: 0 2%;
+  }
+
+  #map-div {
+    height: 400px;
+    max-width: 80%;
+    padding-bottom: 5%;
+  }
+
+}
+@media only screen and (max-width: 900px){
+  #main-nav{
+    display: none;
+  }
+
+  #dropDown-nav{
+    top: 10%;
+    float: left;
+    width: 100%;
+    position: fixed;
+  }
+
+  #map {
+    display: block;
+    height: 100%;
+    margin: 0 2%;
+  }
+
+  #map-div {
+    height: 400px;
+    max-width: 80%;
+    padding-bottom: 5%;
+  }
+
+}
+@media only screen and (max-width:750px){
+  body {
+    font-family: 'PT Sans', sans-serif;
+    font-weight: 200;
+    font-size: 18px;
+  }
+  
+  #map {
+    display: block;
+    height: 100%;
+    margin: 0 2%;
+  }
+
+  #map-div {
+    height: 350px;
+    max-width: 80%;
+    padding-bottom: 5%;
+  }
+  #dropDown-nav{
+    top: 10%;
+    float: left;
+    width: 100%;
+    position: fixed;
+  }
+
+}
+
+@media only screen and (max-width:440px){
+  body {
+    font-family: 'PT Sans', sans-serif;
+    font-weight: 200;
+    font-size: 20px;
+  }
+
+  #map {
+    display: block;
+    height: 100%;
+    margin: 0 2%;
+  }
+
+  #map-div {
+    height: 225px;
+    padding-bottom: 5%;
+    max-width: 80%;
+  }
+
+  #skills {
+    max-width: 80%;
+  }
+  #dropDown-nav{
+    top: 10%;
+    float: left;
+    width: 100%;
+    position: fixed;
+  }
+
+}
+@media only screen and (max-width: 600px){
+  #skills{
+    max-width: 80%;
+  }
+
+}
+@media only screen and (max-width: 767px){
+  #dropDown-nav {
+    display: none;
+  }
+  #main-nav{
+    display: none;
+  }
+  #map {
+    display: block;
+    height: 100%;
+    margin: 0 2%;
+  }
+  #map-div {
+    height: 350;
+    max-width: 80%;
+    padding-bottom: 5%;
+  }
+
+}
