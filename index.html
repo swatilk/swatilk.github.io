@@ -6,186 +6,134 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Short Notes</title>
+        <title>Short to-do notes</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-        <style type="text/css">
-        ol {
-            width: 25%;
-            margin-right: 40%;
-            margin-left: 5%;
-        }
-
-        li{
-            width: 100%;
-            background-color: grey;
-            color: white;
-            margin-top: 2%;
-            list-style-type: circle;
-            margin-left: 3%;
-        }
-        .done {
-            float: right;
-            margin-left: 2em;
-            width: 25%;
-            height: 100%;
-        }
-
-         #toDoItemList li {
-            content: '✔';
-        }
-
-        .edit{
-            float: left;
-            margin: 0;
-        }
-
-
-        </style>
-        <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>-->
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+        <link rel="stylesheet" href="css/custom-styles.css">
+        <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+        <script>
+            $(document).bind("mobileinit", function(){
+                 $.support.cors = true;
+                 $.mobile.allowCrossDomainPages = true;
+                 $.mobile.touchOverflowEnabled = true;
+            });
+        </script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
-       <!-- <script src="js/listMaker.js"></script> -->
-       <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <!--<script type="text/javascript" src="cordova.js"></script>-->
+        
 
     </head>
     <body>
-        <div data-role="header">
-            <h1>Short Notes</h1>
-            <div data-role="content">
-                <ol id="toDoItemList" data-role="listview" data-inset="true"></ol>
+        <div data-role="page" id="index">
+            <div data-role="header" data-theme="a">
+                <h1>Short Notes</h1>
             </div>
-        </div>
+            <div data-role="content">
+                <ul id="toDoItemList" data-role="listview" data-divider-theme="a" data-inset="true" data-autodividers="true" data-split-icon="forward">
+
+                </ul>
+            </div>
             <form action="#" method="post" id="listForm">
-                <div data-role="fieldcontain">
-                    <label for="name">Enter to-do Item</label>
-                    <input type="text" placeholder="Enter your to-do item" id="newItem"/>
-                    <input type="submit" value="Add"/>
-                </div>
+                    <div data-role="fieldcontain">
+                        <label for="newItem">Enter to-do Item</label>
+                        <input type="text" placeholder="Enter your to-do item" id="newItem"/>
+                        <input id="addItem" type="submit" value="Add"/>
+                    </div>
             </form>
+        </div>
         <script>
-            (function (){
-                var theList = document.getElementById('toDoItemList');
-                var theItem = document.getElementById('newItem');
-                var form = document.getElementById('listForm');
-                var buttonEl;
-
-
-                form.addEventListener('submit', function(event){
-
-                    /*function doneClicked(event) {
-                    var t = this.target;
-                    if(t.tagName === 'BUTTON'){
-                        if(t.classList.contains('done')){
-                            t.parentNode.removeChild(t);
-
-                        }
-                        else{
-                            alert("hello");
-                        }
-                    }
-                }*/
-//var pElement = '<p data-role="controlgroup" id="listGroup" data-type="horizontal" data-mini="true">';
-//var editElement = '<a href="#" data-role="button">'+"Edit"+'</a>';
-//var deleteElement = '<a href="#" data-role="button">'+"Delete"+'</a>';
-//$("#listGroup:last").append(editElement);
-
-$("#toDoItemList").append('<li class="list">'+ theItem.value + '</li>');
-/*$(".list:last").append('<input id="doneButton" class="done" value="Done" type="submit"/>');*/
-
-                  /*theList.innerHTML += '<li>'+ theItem.value +'</li';*/
-                 // buttonEl = document.getElementById('doneButton');
-                 // console.log("button: ",buttonEl);
-                    console.log(theItem.value);
-                   // console.log(buttonEl);
-                    theItem.value = " ";
+            $(function(){
+                var theList = $("#toDoItemList");
+                var item = $("#newItem");
+                var addButton = $("#addItem");
+                
+                $("#listForm").on('submit', function(event){
+                    //$("#addItem").on('tap', function(event){
+                        $("#toDoItemList").append('<li class="list">'+ item.val() +'</li>');
+                        item.val(" ");
                         populateStorage();
                         setValues();
-
+                        event.preventDefault();
+                        return false;
+                   
+                   // });
+                    //event.preventDefault();
+                    //return false;
+                });
+                
+                $("#toDoItemList").on('swipe',function(event){ 
+                    var t = event.target;
+                    if(t.nodeName === 'LI' || t.nodeName === 'TEXTAREA' || t.nodeName === 'UL'){
+                        if($(this).hasClass('list')){ 
+                            t.parentNode.removeChild( t );
+                        }
+                        else {
+                            $(this).addClass('list');
+                        }
+                        populateStorage();   
+                    };
                     event.preventDefault();
-                    //setValues();
                     return false;
-
-
                 });
-
-
-        theList.addEventListener('swipe', function(event){
-            var t = event.target;
-                if(t.tagName === 'LI' || t.tagName === 'TEXTAREA' || t.tagName === 'INPUT'){
-                 if ( t.classList.contains( 'list' ) ) {
-                            t.parentNode.removeChild( t );
-                        }
-                        else {
-                            t.classList.add( 'list' );
-                        }
-                        populateStorage();
-                    };
-                    event.preventDefault();
-
-                });
-
-        /*$('#toDoItemList').on('tap', function(event){
-            var t = event.target;
-                if(t.tagName === 'LI' || t.tagName === 'TEXTAREA'){
-                 if ( t.classList.contains( 'list' ) ) {
-                            t.parentNode.removeChild( t );
-                        }
-                        else {
-                            t.classList.add( 'list' );
-                        }
-                        populateStorage();
-                    };
-                    event.preventDefault();
-        });*/
-        theList.addEventListener('click', function(event){
-            var tag = event.target;
-            if(tag.tagName === 'LI'){
-                var newElement = document.createElement('textarea');
-                newElement.setAttribute('id', 'editArea');
-                newElement.innerHTML = tag.innerHTML;
-                console.log(tag.innerHTML);
-                var editableElement = tag.parentNode.replaceChild(newElement, tag);
-                populateStorage();
-                event.preventDefault();
-
-
-
-            }
-        });
-
-        var textArea = document.getElementById('editArea');
-
-                theList.addEventListener('click', function(event){
-                   // alert("clicked in textarea");
-                    var text = event.target;
-                    if(text.tagName === 'OL' || text.tagName ==='DIV'){
-                        var oldElement = document.getElementById('editArea');
-                        var newElement = document.createElement('li');
-                        newElement.innerHTML = oldElement.value;
-                        newElement.setAttribute('class', 'list');
-                        var liElement = oldElement.parentNode.replaceChild(newElement, oldElement);
+                
+                //let the user edit to-do item
+                $("#toDoItemList").on('tap', 'li', function(event){ 
+                    var tag = event.target;
+                    if(tag.nodeName === 'LI'){
+                        //$( "#toDoItemList" ).add( "textarea" ).css( "id", "editArea" );
+                        
+                       // var newElement = $("#editArea");
+                        //console.log(newElement.html());
+                        console.log(tag);
+                        //tag.parentNode.replaceChild(newElement.html(), tag);
+                        
+                        $(tag).replaceWith("<textarea id='editArea'></textarea>");
+                        console.log($(tag));
+                        $("#editArea").val($(tag).text()); 
                         populateStorage();
                         event.preventDefault();
                     }
-
+                    event.preventDefault();
+                    return false;
+                 });
+                 
+                //change back to list item after editing
+                $("#toDoItemList").on('tap',function(event){
+                    var targetnode = event.target;
+                    if(targetnode.nodeName === 'UL' || targetnode.nodeName ==='DIV' || targetnode.nodeName === 'DOCUMENT'){
+                        var oldElement = $("#editArea");
+                        //$("#toDoItemList").add('li').css("class", "list");
+                        
+                        //var newElement = $(".list");
+                        $(oldElement).replaceWith("<li class='list'></li>");
+                        $(".list").val($(oldElement).text());
+                       //targetNode.replaceWith()
+                        populateStorage();
+                        event.preventDefault();
+                    }
+                    event.preventDefault();
+                    return false;
                 });
-
-
-            window.addEventListener('DOMContentLoaded', setValues);
-
+            
+            $(document).ready(function(){
+                if(localStorage.ItemList){
+                        theList.text(localStorage.getItem('ItemList'));
+                    }    
+            });
+            //window.addEventListener('DOMContentLoaded', setValues);
+                
                 function populateStorage(){
-                    localStorage.setItem('ItemList', theList.innerHTML );
+                    localStorage.setItem('ItemList', theList.text() );
                 }
                 function setValues(){
                     if(localStorage.ItemList){
-                        document.getElementById('toDoItemList').innerHTML = localStorage.getItem('ItemList');
+                        theList.text(localStorage.getItem('ItemList'));
                     }
                 }
-            })();
+                
+                
+            });
         </script>
     </body>
 </html>
