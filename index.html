@@ -1,70 +1,191 @@
-<!DOCTYPE html>                           
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Swati's Resume</title>
-  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <script src="js/jQuery.js"></script>
-  <script src="js/helper.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
-  <script type="text/javascript" src="js/Chart.js"></script>
-</head>
-<body>
-  <div id="dropDown-nav" class="dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenu" role="menu"></ul>
-  </div>
-  <div class="container">
-    <nav id="main-nav">
-        <ul class="nav-list"></ul>
-    </nav>
-    <div class="row">
-      <div id="header" class="col-sm-8 col-sm-offset-2 text-center">
-      </div> 
-    </div>
-    <div style="clear: both;"></div>
-    <div>
-      <div class="row">
-        <div id="topContacts" class="col-sm-8 col-sm-offset-4">
-            <ul class="contact-list"></ul>
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Short Notes</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <style type="text/css">
+        ol {
+            width: 25%;
+            margin-right: 40%;
+            margin-left: 5%;
+        }
+
+        li{
+            width: 100%;
+            background-color: grey;
+            color: white;
+            margin-top: 2%;
+            list-style-type: circle;
+            margin-left: 3%;
+        }
+        .done {
+            float: right;
+            margin-left: 2em;
+            width: 25%;
+            height: 100%;
+        }
+
+         #toDoItemList li {
+            content: '✔';
+        }
+
+        .edit{
+            float: left;
+            margin: 0;
+        }
+
+
+        </style>
+        <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>-->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
+       <!-- <script src="js/listMaker.js"></script> -->
+       <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    </head>
+    <body>
+        <div data-role="header">
+            <h1>Short Notes</h1>
+            <div data-role="content">
+                <ol id="toDoItemList" data-role="listview" data-inset="true"></ol>
+            </div>
         </div>
-      </div>
-      <div class="row">
-        <div  id="workExperience" class="col-sm-8 col-sm-offset-4">
-          <i class="fa fa-briefcase fa-2x"></i>
-          <h2>Work Experience</h2>
-        </div>
-      </div>
-      <div id="skillsRow" class="row">
-        <div id ="skills" class="col-sm-8 col-sm-offset-4"> 
-          <canvas id="skillsCanvas" width="400px" height="300px">
-          </canvas>
-        </div>
-      </div>
-      <div class="row">
-        <div id="projects" class="col-sm-8 col-sm-offset-4">
-          <i class="fa fa-flask fa-2x"></i>
-          <h2>Projects</h2>
-        </div>
-      </div>
-      <div class="row">
-        <div id="education" class="col-sm-8 col-sm-offset-4">
-          <i class="fa fa-graduation-cap fa-2x"></i>
-          <h2>Education</h2>
-        </div>
-      </div>
-      <div class="row">
-        <div id="map-div" class="col-sm-8 col-sm-offset-4"></div>
-      </div>
-    </div>
-  </div>
-  <script src="js/resumeBuilder.js"></script>
-</body>
+            <form action="#" method="post" id="listForm">
+                <div data-role="fieldcontain">
+                    <label for="name">Enter to-do Item</label>
+                    <input type="text" placeholder="Enter your to-do item" id="newItem"/>
+                    <input type="submit" value="Add"/>
+                </div>
+            </form>
+        <script>
+            (function (){
+                var theList = document.getElementById('toDoItemList');
+                var theItem = document.getElementById('newItem');
+                var form = document.getElementById('listForm');
+                var buttonEl;
+
+
+                form.addEventListener('submit', function(event){
+
+                    /*function doneClicked(event) {
+                    var t = this.target;
+                    if(t.tagName === 'BUTTON'){
+                        if(t.classList.contains('done')){
+                            t.parentNode.removeChild(t);
+
+                        }
+                        else{
+                            alert("hello");
+                        }
+                    }
+                }*/
+var pElement = '<p data-role="controlgroup" id="listGroup" data-type="horizontal" data-mini="true">';
+var editElement = '<a href="#" data-role="button">'+"Edit"+'</a>';
+var deleteElement = '<a href="#" data-role="button">'+"Delete"+'</a>';
+$("#listGroup:last").append(editElement);
+
+$("#toDoItemList").append('<li class="list">'+ theItem.value + '</li>');
+/*$(".list:last").append('<input id="doneButton" class="done" value="Done" type="submit"/>');*/
+
+                  /*theList.innerHTML += '<li>'+ theItem.value +'</li';*/
+                 // buttonEl = document.getElementById('doneButton');
+                 // console.log("button: ",buttonEl);
+                    console.log(theItem.value);
+                   // console.log(buttonEl);
+                    theItem.value = " ";
+                        populateStorage();
+                        setValues();
+
+                    event.preventDefault();
+                    //setValues();
+
+
+
+                });
+
+
+        theList.addEventListener('dblclick', function(event){
+            var t = event.target;
+                if(t.tagName === 'LI' || t.tagName === 'TEXTAREA' || t.tagName === 'INPUT'){
+                 if ( t.classList.contains( 'list' ) ) {
+                            t.parentNode.removeChild( t );
+                        }
+                        else {
+                            t.classList.add( 'list' );
+                        }
+                        populateStorage();
+                    };
+                    event.preventDefault();
+
+                });
+
+        /*$('#toDoItemList').on('tap', function(event){
+            var t = event.target;
+                if(t.tagName === 'LI' || t.tagName === 'TEXTAREA'){
+                 if ( t.classList.contains( 'list' ) ) {
+                            t.parentNode.removeChild( t );
+                        }
+                        else {
+                            t.classList.add( 'list' );
+                        }
+                        populateStorage();
+                    };
+                    event.preventDefault();
+        });*/
+        theList.addEventListener('click', function(event){
+            var tag = event.target;
+            if(tag.tagName === 'LI'){
+                var newElement = document.createElement('textarea');
+                newElement.setAttribute('id', 'editArea');
+                newElement.innerHTML = tag.innerHTML;
+                console.log(tag.innerHTML);
+                var editableElement = tag.parentNode.replaceChild(newElement, tag);
+                populateStorage();
+                event.preventDefault();
+
+
+
+            }
+        });
+
+        var textArea = document.getElementById('editArea');
+
+                theList.addEventListener('click', function(event){
+                   // alert("clicked in textarea");
+                    var text = event.target;
+                    if(text.tagName === 'OL' || text.tagName ==='DIV'){
+                        var oldElement = document.getElementById('editArea');
+                        var newElement = document.createElement('li');
+                        newElement.innerHTML = oldElement.value;
+                        newElement.setAttribute('class', 'list');
+                        var liElement = oldElement.parentNode.replaceChild(newElement, oldElement);
+                        populateStorage();
+                        event.preventDefault();
+                    }
+
+                });
+
+
+            window.addEventListener('DOMContentLoaded', setValues);
+
+                function populateStorage(){
+                    localStorage.setItem('ItemList', theList.innerHTML );
+                }
+                function setValues(){
+                    if(localStorage.ItemList){
+                        document.getElementById('toDoItemList').innerHTML = localStorage.getItem('ItemList');
+                    }
+                }
+            })();
+        </script>
+    </body>
 </html>
