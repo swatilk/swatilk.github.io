@@ -62,7 +62,7 @@ and open the template in the editor.
                     //return false;
                 });
                 
-                $("#toDoItemList").on('swipe',function(event){ 
+                $("#toDoItemList").on('swipe dblclick',function(event){ 
                     var t = event.target;
                     if(t.nodeName === 'LI' || t.nodeName === 'TEXTAREA' || t.nodeName === 'UL'){
                         if($(this).hasClass('list')){ 
