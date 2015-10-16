@@ -121,14 +121,16 @@
 
 
         //delete a list item
-        $("#toDoItemList").delegate('a.close','tap click',function(event){
+        $("ul").delegate('a.close','tap click',function(event){
         	//event.stopPropagation();
             var t = event.target;
             if(t.nodeName === 'A'){
                 if($(this).closest("li").hasClass('list')){
-                    index = $("li").index(this.closest("li"));
+                    //index = $("li").index(this.closest("li"));
+                    index = $("a").index(this);
+                    $("li").eq(index).remove();
                     console.log("remove",this.closest("li"));
-                    this.closest("li").remove("li");
+                   // this.closest("li").remove("li");
                     ItemList.splice(index, 1);
                     populateStorage('keys', ItemList);
                     //event.preventDefault();
