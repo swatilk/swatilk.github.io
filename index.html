@@ -3,50 +3,51 @@
 <head>
     <title>My Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css"/>
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/smoothness/jquery-ui.css"/>
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css">
 
     <style>
-    body {
-        width: auto;
-        height: auto;
-    }
-    a.edit {
-        float: left;
-    }
-    a {
-        float: right;
-        text-decoration: none;
-    }
-    textarea {
-    	width:80%;
-    }
-    li.list {
-        margin-left: 10%;
-    }
+        a{
+            text-decoration: none;
+        }
+        a.edit {
+            float: left;
+            margin-right:5%;
+        }
 
+        a.close {
+            float: right;
+        }
+
+        textarea {
+        	width:80%;
+        }
+        li.list {
+            margin-left: 10%;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
-
     <script>
-		$(document).bind('mobileinit',function(){
-    	$.mobile.changePage.defaults.changeHash = false;
-    	$.mobile.hashListeningEnabled = false;
-    	$.mobile.pushStateEnabled = false;
-    	$.mobile.allowCrossDomainPages = true;
-        $.support.cors = true;
-	});
-		</script>
+    	$(document).bind('mobileinit',function(){
+        	$.mobile.changePage.defaults.changeHash = false;
+        	$.mobile.hashListeningEnabled = false;
+        	$.mobile.pushStateEnabled = false;
+        	$.mobile.allowCrossDomainPages = true;
+        });
+    </script>
     <script src="https://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+
 </head>
 <body>
-	<div data-role="page" id="index">
+	<div data-role="page">
 		<div data-role="header">
 			<h1>To-Do List</h1>
 		</div>
+
 		<div data-role="content">
+            <!-- ul tag where all the items entered by the user are displayed-->
 			<ul id="toDoItemList" data-role="listview" data-inset="true"></ul>
 		</div>
+        <!-- form to accept input from user-->
 		<form action="#" method="post" id="listForm">
             <div data-role="fieldcontain">
                 <label for="newItem">Enter to-do Item</label>
@@ -54,190 +55,109 @@
                 <input id="addItem" type="submit" value="Add"/>
             </div>
         </form>
+        <!-- pop up where the user will edit their to-do item-->
         <div data-role="popup" id="pop1" data-position-to="window">
-          <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-          <div data-role="header" data-theme="a"><h1>Edit your item</h1></div>
-          <p class="ui-bar ui-bar-e">
-          <textarea id="editArea"></textarea>
-          <a href="#" data-rel="back" data-role="button" data-theme="a" id="saveEdit">Save Changes</a>
-      </p>
-  </div>
+            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+            <div data-role="header" data-theme="a">
+                <h1>Edit your item</h1>
+            </div>
+            <p class="ui-bar ui-bar-e">
+                <textarea id="editArea"></textarea>
+                <a href="#" data-rel="back" data-role="button" data-theme="a" id="saveEdit">Save Changes</a>
+            </p>
+        </div>
 	</div>
 	<script>
-	//$(function(){
-        //var ItemList;
-$("#index").live('pageinit',function(){
+	$(function(){
 
-                var ItemList = getItems('keys');
+        //fetch the list(array) of items from local storage and display them
+        $(document).ready(function(){
+                ItemList = JSON.parse(localStorage['keys']);
                 displayItems(ItemList);
+        });
 
-function getItems(key){
-    if(localStorage[key]){
-        return JSON.parse(localStorage[key]);
-    }
-    else {
-        return [];
-    }
+		var item = $("#newItem"),
+            index,
+            ItemList;
 
-}
-        //});
-
-		var theList = $("#toDoItemList"),
-            item = $("#newItem"),
-            addButton = $("#addItem"),
-            index;
-
+        //On form submit, push the item to array of to-do items, display the new array and store the array locally
 		$("#listForm").on('submit', function(event){
             if(item.val() != ' '){
-                console.log("if",item.val());
                 ItemList.push(item.val());
                 item.val(" ");
                 displayItems(ItemList);
                 populateStorage('keys', ItemList);
                 event.preventDefault();
                 return false;
-        }
-
-        else{
-            console.log("else",item.val());
-            alert("Please enter a value");
-            item.val(" ");
-            event.preventDefault();
-            return false;
-        }
+            }
+            //if user accidentally clicks on 'add' without any content, prompt them to enter a value
+            else{
+                alert("Please enter a to-do item");
+                item.val(" ");
+                event.preventDefault();
+                return false;
+            }
 		});
 
-		$("ul").delegate('li a','click touchstart',function(event){
-            //$("ul").on('click',function(){
-            console.log("inside edit");
+        //editing a list item when tapped on edit button
+		$("ul").delegate('li','tap click',function(event){
             index = $("li").index(this.closest("li"));
-            console.log(index);
             var parent = ItemList[index];
-            console.log(parent);
             $("#editArea").val(parent);
             $("pop1").val(parent);
-            console.log($("#editArea").val());
- //event.preventDefault();
-           //return false;
+            //event.preventDefault();
 
-            $("#saveEdit").on('click touchstart', function(event){
+            //listen to click event on 'save changes' button and save the new contents into the list item and items array, display the new array and store locally
+            $("#saveEdit").click (function(event){
                 ItemList[index] = $("#editArea").val();
                 displayItems(ItemList);
                 populateStorage('keys', ItemList);
-                //event.preventDefault();
-               //return false;
+               // event.preventDefault();
             });
-
 		});
 
-		/*$("#toDoItemList").delegate("textarea, li, ul, window","tap click",function(event){
-            var targetnode = event.target;
-            if(targetnode.nodeName === 'UL' || targetnode.nodeName ==='DIV' || targetnode.nodeName === 'WINDOW' || targetnode.nodeName === 'DOCUMENT' || targetnode.nodeName === 'TEXTAREA'){
-            	console.log("text",targetnode.nodeName);
-                //var oldElement = $(".editArea");
-                if(targetnode.nodeName === "TEXTAREA"){
-                    //var oldElement = $(this);
-                console.log("oldelement should be textarea", $(this));
-                var textContent = $(this).text();
-                $(this).outerHTML = "<li class='list'></li>";
-                //$(oldElement).after("<li class='list'></li>").remove();
-                //$(oldElement).replaceWith("<li class='list'></li>");
-                $(".list").val(textContent);
-                console.log("after replacement",$(this));
-                }
 
-
-                populateStorage();
-                event.preventDefault();
-
-                }
-                event.preventDefault();
-
-        });*/
 
         //delete a list item
         $("#toDoItemList").delegate('a.close','tap click',function(event){
             var t = event.target;
             if(t.nodeName === 'A'){
                 if($(this).closest("li").hasClass('list')){
-                    //this.parentNode.removeChild( this );
                     index = $("li").index(this.closest("li"));
                     console.log("remove",this.closest("li"));
                     this.closest("li").remove("li");
                     ItemList.splice(index, 1);
                     populateStorage('keys', ItemList);
-                    event.preventDefault();
-                    return false;
-
+                    //event.preventDefault();
+                    //return false;
                 }
                 else {
                     $(this).closest("li").addClass('list');
                 }
-                //populateStorage();
-            };
+            }
             event.preventDefault();
             return false;
         });
 
-
-
-
+        //display the array of list items
         function displayItems(arrayItems){
             $('li').remove();
             if(arrayItems.length > 0){
-                    //index = $("#toDoItemList").index(this)
-            for(var i=0; i<arrayItems.length;i++){
-$("#toDoItemList").append('<li class="list">'+ arrayItems[i] +
-'<a href="#pop1" class="edit" data-rel="popup" data-theme="b">'+
-'Edit</a>'+
-'<a href="#" class="close" data-role="button" data-theme="b">'+
-'x</a></li>');
-
-                    }
+                for(var i=0; i<arrayItems.length;i++){
+                    $("#toDoItemList").append('<li class="list">'+ arrayItems[i] +'<a href="#pop1" class="edit"'+'data-rel="popup" data-'+'theme="a">Edit</a>'+'<a href="#" class="close"'+' data-'+'role="button" data-theme="a">x</a></li>');
                 }
-                else {
-                    return;
-                }
+            }
+            else {
+                return;
+            }
         }
 
+        //save the array to local storage
 		function populateStorage(ind, setItems){
-			//var storedItem = $("#toDoItemList").html();
-            //localStorage.setItem('ItemList', JSON.stringify(storedItem));
             localStorage[ind] = JSON.stringify(setItems);
-
          }
-    	/*function setValues(){
-            if(localStorage.getItem('ItemList')){
-       	$("#toDoItemList").html(JSON.parse(localStorage.getItem('ItemList')));
-            }
-        }*/
 
-});
+	});
 	</script>
 </body>
 </html>
-
-<!-- //
-    edit =<i class=icon-foo>&#xf044;</i>
-delete = <i class=icon-foo>&#xf00d;</i>
-$(".edit").text() = $(parent).text();
-            //console.log($(parent).text());
-                        //$(tag).replaceWith("<textarea type='text' class='editArea'></textarea>");
-                       // $(tag).after("<textarea type='text' class='editArea'></textarea>").remove();
-                       //$(this).outerHTML = "<textarea type='text' class='editArea'></textarea>";
-                       //var listElement = document.getElementsByTagName("li");
-                       //var counter = $("li").index(listElement);
-                       //var t = document.getElementsByClassName("list")[counter];
-                       //console.log(counter);
-                //$(this).outerHTML = "<textarea type='text' class='editArea'></textarea>";
-
-                        //console.log("tag after replacing",$(this));
-<link rel="stylesheet"
-            href="http://jquerymobile.com/branches/popup-widget/css/themes/default/jquery.mobile.css"/>
-        <script src="http://jquerymobile.com/branches/popup-widget/js/jquery.js"></script>
-        <script src="
-
-        web-ui-fw-libs.js, web-ui-fw.js and web-ui-fw-widget.css">
-                    -->
-
-
