@@ -1,139 +1,170 @@
-<!DOCTYPE html>                           
-
+<!DOCTYPE html>
+<html>
 <head>
+    <title>My Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css">
+    <style>
+    a {
+    	float: right;
 
-  <meta charset="utf-8">
+    }
+    textarea {
+    	width:80%;
+    }
 
-  <meta name="viewport" content="width=device-width">
-
-  <title>Swati's Resume</title>
-
-  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
-
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-
-  <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-
-  <link rel="stylesheet" href="css/style.css">
-
-  <script src="js/jQuery.js"></script>
-
-  <script src="js/helper.js"></script>
-
-  <script src="js/bootstrap.min.js"></script>
-
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
-
-  <script type="text/javascript" src="js/Chart.js"></script>
-
+    </style>
+    <script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/smoothness/jquery-ui.css"></script>-->
+    <script>
+		$(document).bind('mobileinit',function(){
+    	$.mobile.changePage.defaults.changeHash = false;
+    	$.mobile.hashListeningEnabled = false;
+    	$.mobile.pushStateEnabled = false;
+    	$.mobile.allowCrossDomainPages = true;
+	});
+		</script>
+    <script src="https://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 </head>
-
 <body>
+	<div data-role="page">
+		<div data-role="header">
+			<h1>To-Do List</h1>
+		</div>
+		<div data-role="content">
+			<ul id="toDoItemList" data-role="listview" data-inset="true"></ul>
+		</div>
+		<form action="#" method="post" id="listForm">
+            <div data-role="fieldcontain">
+                <label for="newItem">Enter to-do Item</label>
+                <input type="text" placeholder="Enter your to-do item" id="newItem"/>
+                <input id="addItem" type="submit" value="Add" id="addButton"/>
+            </div>
+        </form>
 
-  <div id="dropDown-nav" class="dropdown">
-
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu
-
-      <span class="caret"></span>
-
-    </button>
-
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenu" role="menu"></ul>
-
+        <div data-role="popup" id="pop1" data-position-to="window">
+          <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+          <div data-role="header" data-theme="b"><h1>Edit your item</h1></div>
+          <p class="ui-bar ui-bar-e">
+          <textarea id="editArea"></textarea>
+          <a href="#" data-rel="back" data-role="button" data-theme="a" id="saveEdit">Save Changes</a>
+      </p>
   </div>
+	</div>
+	<script>
+    $(function(){
 
-  <div class="container">
+        var theList = $("#toDoItemList"),
+            item = $("#newItem"),
+            addButton = $("#addItem"),
+            counter = 0,
+            index;
+            //$('#toDoItemList').listview('refresh')
+        $("#listForm").on('submit',function(event){
 
-    <nav id="main-nav">
 
-        <ul class="nav-list"></ul>
 
-    </nav>
+            var listText = $("#newItem").val();
+            storedItemList.push(listText);
+            console.log("new storedItemList", storedItemList);
+            $("#newItem").val('');
+            displayValues(storedItemList);
+            populateStorage('memos',storedItemList);
+            event.preventDefault();
+            return false;
 
-    <div class="row">
 
-      <div id="header" class="col-sm-8 col-sm-offset-2 text-center">
+    });
+        //delete a list item
+        $("#toDoItemList").delegate('a.close','tap click',function(event){
+            /*var t = event.target;
+            if(t.nodeName === 'A' || t.nodeName === 'TEXTAREA' || t.nodeName === 'LI' || t.nodeName === 'UL'){
+                if($(this).closest("li").hasClass('list')){
+                    //this.parentNode.removeChild( this );
+                    console.log("remove",this.closest("li"));
+                    this.closest("li").remove("li");
+                    counter -= 1;
+                }
+                else {
+                    $(this).closest("li").addClass('list');
+                }
+                populateStorage();
+            };
+            event.preventDefault();
+            return false;*/
+            event.stopPropagation();
+             index = $(".close").index(this);
+            $('li').eq(index).remove();
+            storedItemList.splice(index, 1);
+            console.log("storedItemList after deleting", storedItemList, index);
+            populateStorage('memos', storedItemList);
+            event.preventDefault();
+            return false;
+        });
 
-      </div> 
+        //edit element
+        $('ul').delegate('li', 'click', function(event){
+            index = $('li').index(this);
+            var content = storedItemList[index];
+            console.log(content, index);
+            $('#pop1').val(content);
+            $('#editArea').val(content);
+            event.preventDefault();
+            //return false;
 
-    </div>
+            $('#saveEdit').click(function(event){
+        //event.stopPropagation();
+            console.log("save button",storedItemList[index]);
+            storedItemList[index] = $('#editArea').val();
+            console.log("index",index);
+            console.log("save button",storedItemList[index]);
+            displayValues(storedItemList);
+            populateStorage('memos', storedItemList);
+            event.preventDefault();
+            });
+        });
 
-    <div style="clear: both;"></div>
 
-    <div>
 
-      <div class="row">
 
-        <div id="topContacts" class="col-sm-8 col-sm-offset-4">
+        $(document).ready(function(){
+            storedItemList = retrieveValues('memos');
+            console.log("local",storedItemList);
+            displayValues(storedItemList);
 
-            <ul class="contact-list"></ul>
+        });
 
-        </div>
+        function populateStorage(key, storeItems){
+            localStorage[key] = JSON.stringify(storeItems);
+         }
 
-      </div>
+        function retrieveValues(key){
+            if(localStorage[key]){
+                return (JSON.parse(localStorage[key]));
+            }
+            else
+                return [ ];
+        }
 
-      <div class="row">
+        function displayValues(itemList){
+            //var storedItemList;
+            //if(localStorage.getItem('ItemList')){
+              //  storedItemList = JSON.parse(localStorage.getItem('ItemList'));
+                    $('li').remove();
+                    if(itemList.length > 0){
+                        for(var i=0; i < itemList.length;i++){
 
-        <div  id="workExperience" class="col-sm-8 col-sm-offset-4">
+                            $("#toDoItemList").append('<li class="list">'+ itemList[i] +
+                                '<a href="#pop1" class="edit" data-'+'rel="popup" data-inline="true">'+'Edit</a>'+'<a href="#" data-icon="delete" class="close" data-theme="c">x</a></li>');
 
-          <i class="fa fa-briefcase fa-2x"></i>
+                    }
+                    }
+                    else{
+                        return;
+                    }
+            }
 
-          <h2>Work Experience</h2>
-
-        </div>
-
-      </div>
-
-      <div id="skillsRow" class="row">
-
-        <div id ="skills" class="col-sm-8 col-sm-offset-4"> 
-
-          <canvas id="skillsCanvas" width="400px" height="300px">
-
-          </canvas>
-
-        </div>
-
-      </div>
-
-      <div class="row">
-
-        <div id="projects" class="col-sm-8 col-sm-offset-4">
-
-          <i class="fa fa-flask fa-2x"></i>
-
-          <h2>Projects</h2>
-
-        </div>
-
-      </div>
-
-      <div class="row">
-
-        <div id="education" class="col-sm-8 col-sm-offset-4">
-
-          <i class="fa fa-graduation-cap fa-2x"></i>
-
-          <h2>Education</h2>
-
-        </div>
-
-      </div>
-
-      <div class="row">
-
-        <div id="map-div" class="col-sm-8 col-sm-offset-4"></div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <script src="js/resumeBuilder.js"></script>
-
+    });
+    </script>
 </body>
-
 </html>
