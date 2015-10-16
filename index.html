@@ -127,7 +127,7 @@
             if(t.nodeName === 'A'){
                 if($(this).closest("li").hasClass('list')){
                     //index = $("li").index(this.closest("li"));
-                    index = $("a").index(this);
+                    index = $("li").index(this);
                     $("li").eq(index).remove();
                     console.log("remove",this.closest("li"));
                    // this.closest("li").remove("li");
