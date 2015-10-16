@@ -89,15 +89,15 @@
                 item.val(" ");
                 displayItems(ItemList);
                 populateStorage('keys', ItemList);
-                event.preventDefault();
-                return false;
+                //event.preventDefault();
+                //return false;
             }
             //if user accidentally clicks on 'add' without any content, prompt them to enter a value
             else{
                 alert("Please enter a to-do item");
                 item.val(" ");
-                event.preventDefault();
-                return false;
+                //event.preventDefault();
+                //return false;
             }
 		});
 
@@ -122,7 +122,7 @@
 
         //delete a list item
         $("#toDoItemList").delegate('a.close','touchstart click',function(event){
-        	//event.stopPropagation();
+        	event.stopPropagation();
             var t = event.target;
             if(t.nodeName === 'A'){
                 if($(this).closest("li").hasClass('list')){
