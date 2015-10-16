@@ -229,6 +229,7 @@ inName("swati Kamtar");
 $("#map-div").append(mapHeader);
 $("#map-div:last").append(googleMap);
 
+/*interest object*/
 var interests = ["Cooking and Trying out new recipes", "Music", "Travelling"];
 $("#interests:last").append(HTMLinterestStart);
 
