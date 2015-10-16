@@ -122,7 +122,7 @@
 
         //delete a list item
         $("#toDoItemList").delegate('a.close','tap click',function(event){
-        	event.stopPropagation();
+        	//event.stopPropagation();
             var t = event.target;
             if(t.nodeName === 'A'){
                 if($(this).closest("li").hasClass('list')){
@@ -138,8 +138,8 @@
                     $(this).closest("li").addClass('list');
                 }
             }
-            event.preventDefault();
-            return false;
+            //event.preventDefault();
+            //return false;
         });
 
         //display the array of list items
