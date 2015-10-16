@@ -101,12 +101,12 @@
 
         //editing a list item when tapped on edit button
 		$("ul").delegate('li','tap click',function(event){
-            index = $("li").index(this.closest("li"));
+            index = $("li").index(this);
             var parent = ItemList[index];
             $("#editArea").val(parent);
-            $("pop1").val(parent);
+            //$("pop1").val(parent);
             //event.preventDefault();
-
+});
             //listen to click event on 'save changes' button and save the new contents into the list item and items array, display the new array and store locally
             $("#saveEdit").click (function(event){
                 ItemList[index] = $("#editArea").val();
@@ -114,12 +114,13 @@
                 populateStorage('keys', ItemList);
                // event.preventDefault();
             });
-		});
+		
 
 
 
         //delete a list item
         $("#toDoItemList").delegate('a.close','tap click',function(event){
+        	event.stopPropagation();
             var t = event.target;
             if(t.nodeName === 'A'){
                 if($(this).closest("li").hasClass('list')){
