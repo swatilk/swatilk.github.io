@@ -61,11 +61,11 @@
 	<script>
 	$(function(){
 
-		var theList = $("#toDoItemList"),
-            item = $("#newItem"),
-            addButton = $("#addItem"),
-            index,
-            ItemList;
+		var theList = $("#toDoItemList");
+            var item = $("#newItem");
+            var addButton = $("#addItem");
+            var index;
+            var ItemList;
 
 		$("#listForm").on('submit', function(event){
             if(item.val() != ' '){
