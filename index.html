@@ -128,9 +128,9 @@
                 if($(this).closest("li").hasClass('list')){
                     //index = $("li").index(this.closest("li"));
                     index = $("li").index(this);
-                    $("li").eq(index).remove();
+                    //$("li").eq(index).remove();
                     console.log("remove",this.closest("li"));
-                   // this.closest("li").remove("li");
+                    this.closest("li").remove("li");
                     ItemList.splice(index, 1);
                     populateStorage('keys', ItemList);
                     //event.preventDefault();
