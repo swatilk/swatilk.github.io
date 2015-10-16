@@ -32,13 +32,14 @@
         	$.mobile.hashListeningEnabled = false;
         	$.mobile.pushStateEnabled = false;
         	$.mobile.allowCrossDomainPages = true;
+        	$.support.cors = true;
         });
     </script>
     <script src="https://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 
 </head>
 <body>
-	<div data-role="page">
+	<div data-role="page" id="index">
 		<div data-role="header">
 			<h1>To-Do List</h1>
 		</div>
@@ -68,17 +69,17 @@
         </div>
 	</div>
 	<script>
-	$(function(){
+	//$(function(){
 
         //fetch the list(array) of items from local storage and display them
-        $(document).ready(function(){
-                ItemList = JSON.parse(localStorage['keys']);
+        //$(document).ready(function(){
+        $("#index").live('pageinit',function(){
+               var ItemList = JSON.parse(localStorage['keys']);
                 displayItems(ItemList);
-        });
+        //});
 
 		var item = $("#newItem"),
-            index,
-            ItemList;
+            index;
 
         //On form submit, push the item to array of to-do items, display the new array and store the array locally
 		$("#listForm").on('submit', function(event){
