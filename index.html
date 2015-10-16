@@ -121,7 +121,7 @@
 
 
         //delete a list item
-        $("ul").delegate('a.close','tap click',function(event){
+        $("#toDoItemList").delegate('a.close','touchstart click',function(event){
         	//event.stopPropagation();
             var t = event.target;
             if(t.nodeName === 'A'){
