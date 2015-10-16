@@ -72,8 +72,8 @@
 	//$(function(){
 
         //fetch the list(array) of items from local storage and display them
-        //$(document).ready(function(){
-        $("#index").live('pageinit',function(){
+        $(document).ready(function(){
+        //$("#index").live('pageinit',function(){
                var ItemList = JSON.parse(localStorage['keys']);
                 displayItems(ItemList);
                 console.log(ItemList);
