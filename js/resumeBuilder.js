@@ -229,6 +229,12 @@ inName("swati Kamtar");
 $("#map-div").append(mapHeader);
 $("#map-div:last").append(googleMap);
 
+var interests = ["Cooking and Trying out new recipes", "Music", "Travelling"];
+$("#interests:last").append(HTMLinterestStart);
+
+for(interest in interests){
+	$(".interest-list:last").append(HTMLinterests.replace("%data%", interests[interest]));
+}
 /*skills chart data*/
 	var barChartData = {
 			labels : [bio.skills[0],bio.skills[1],bio.skills[2],bio.skills[3],bio.skills[4]],
