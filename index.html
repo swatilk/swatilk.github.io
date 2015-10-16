@@ -152,7 +152,7 @@
         });
 
         $(window).ready(function(){
-                ItemList = JSON.parse(localStorage['keys']);
+                ItemList = JSON.parse(window.localStorage['keys']);
                 displayItems(ItemList);
 
         });
@@ -178,7 +178,7 @@ $("#toDoItemList").append('<li class="list">'+ arrayItems[i] +
 		function populateStorage(ind, setItems){
 			//var storedItem = $("#toDoItemList").html();
             //localStorage.setItem('ItemList', JSON.stringify(storedItem));
-            localStorage[ind] = JSON.stringify(setItems);
+            window.localStorage[ind] = JSON.stringify(setItems);
 
          }
     	/*function setValues(){
