@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/smoothness/jquery-ui.css"/>
 
     <style>
+    body {
+        width: auto;
+        height: auto;
+    }
     a.edit {
         float: left;
     }
@@ -30,12 +34,13 @@
     	$.mobile.hashListeningEnabled = false;
     	$.mobile.pushStateEnabled = false;
     	$.mobile.allowCrossDomainPages = true;
+        $.support.cors = true;
 	});
 		</script>
     <script src="https://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 </head>
 <body>
-	<div data-role="page">
+	<div data-role="page" id="index">
 		<div data-role="header">
 			<h1>To-Do List</h1>
 		</div>
@@ -59,13 +64,28 @@
   </div>
 	</div>
 	<script>
-	$(function(){
+	//$(function(){
+        //var ItemList;
+$("#index").live('pageinit',function(){
 
-		var theList = $("#toDoItemList");
-            var item = $("#newItem");
-            var addButton = $("#addItem");
-            var index;
-            var ItemList;
+                var ItemList = getItems('keys');
+                displayItems(ItemList);
+
+function getItems(key){
+    if(localStorage[key]){
+        return JSON.parse(localStorage[key]);
+    }
+    else {
+        return [];
+    }
+
+}
+        //});
+
+		var theList = $("#toDoItemList"),
+            item = $("#newItem"),
+            addButton = $("#addItem"),
+            index;
 
 		$("#listForm").on('submit', function(event){
             if(item.val() != ' '){
@@ -87,19 +107,27 @@
         }
 		});
 
-		$("ul").delegate('li','tap click',function(event){
+		$("ul").delegate('li a','click touchstart',function(event){
+            //$("ul").on('click',function(){
+            console.log("inside edit");
             index = $("li").index(this.closest("li"));
+            console.log(index);
             var parent = ItemList[index];
+            console.log(parent);
             $("#editArea").val(parent);
             $("pop1").val(parent);
-            event.preventDefault();
+            console.log($("#editArea").val());
+ //event.preventDefault();
+           //return false;
 
-            $("#saveEdit").click (function(event){
+            $("#saveEdit").on('click touchstart', function(event){
                 ItemList[index] = $("#editArea").val();
                 displayItems(ItemList);
                 populateStorage('keys', ItemList);
-                event.preventDefault();
+                //event.preventDefault();
+               //return false;
             });
+
 		});
 
 		/*$("#toDoItemList").delegate("textarea, li, ul, window","tap click",function(event){
@@ -151,11 +179,8 @@
             return false;
         });
 
-        $(window).ready(function(){
-                ItemList = JSON.parse(window.localStorage['keys']);
-                displayItems(ItemList);
 
-        });
+
 
         function displayItems(arrayItems){
             $('li').remove();
@@ -178,7 +203,7 @@ $("#toDoItemList").append('<li class="list">'+ arrayItems[i] +
 		function populateStorage(ind, setItems){
 			//var storedItem = $("#toDoItemList").html();
             //localStorage.setItem('ItemList', JSON.stringify(storedItem));
-            window.localStorage[ind] = JSON.stringify(setItems);
+            localStorage[ind] = JSON.stringify(setItems);
 
          }
     	/*function setValues(){
@@ -187,7 +212,7 @@ $("#toDoItemList").append('<li class="list">'+ arrayItems[i] +
             }
         }*/
 
-	});
+});
 	</script>
 </body>
 </html>
@@ -206,6 +231,13 @@ $(".edit").text() = $(parent).text();
                        //console.log(counter);
                 //$(this).outerHTML = "<textarea type='text' class='editArea'></textarea>";
 
-                        //console.log("tag after replacing",$(this)); -->
+                        //console.log("tag after replacing",$(this));
+<link rel="stylesheet"
+            href="http://jquerymobile.com/branches/popup-widget/css/themes/default/jquery.mobile.css"/>
+        <script src="http://jquerymobile.com/branches/popup-widget/js/jquery.js"></script>
+        <script src="
+
+        web-ui-fw-libs.js, web-ui-fw.js and web-ui-fw-widget.css">
+                    -->
 
 
