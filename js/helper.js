@@ -62,6 +62,10 @@ var HTMLonlineSchool = ' - %data%</div>';
 var HTMLonlineDates = '<div class="date-text online-date">%data%</div>';
 var HTMLonlineURL = '<br><a href="#">%data%</a><br>';
 
+/* interests and hobbies */
+var HTMLinterestStart = '<ul class="interest-list"><ul>';
+var HTMLinterests = '<li class="interest-item">%data%</li>';
+
 /*Google Map header and the map div*/
 var mapHeader = ' <i class="fa fa-map-marker fa-2x"><h2>Where I\'ve lived and worked</h2>';
 var googleMap = '<div id="map"></div>';
