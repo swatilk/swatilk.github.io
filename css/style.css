@@ -88,7 +88,7 @@ hr {
 }
 
 /*to display headings and icons on the same line */
-#workExperience h2,#projects h2,#education h2,#lets-connect h2,#skills h2, em h4, #topContacts h2 {
+#workExperience h2,#projects h2,#education h2,#lets-connect h2,#skills h2, em h4, #topContacts h2, #interests h2 {
   display: inline;
   margin-bottom: 5em;
   margin-top: 2em;
@@ -98,7 +98,7 @@ hr {
   margin-left: 3%;
 }
 
-#header,#workExperience,#skillsCanvas,#projects,#education,#map-div {
+#header,#workExperience,#skillsCanvas,#projects,#education,#map-div, #interests {
   padding-left: 15px;
   padding-right: 15px;
 }
