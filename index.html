@@ -14,6 +14,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <style>
     	
+        
         body {
             width: auto;
             height: auto;
@@ -47,16 +48,19 @@
         a.close {
             float: right;
             color: #337ab7;
-            width:48px;
-            height:48px;
+        }
+        a.edit {
+            float: left;
+            margin-right: 5%;
         }
         a {
+         
             text-decoration: none;
         }
         textarea {
         	width:80%;
         }
-       
+    
         .listDiv{
             margin-right: 25%;
             margin-left: 25%;
@@ -68,6 +72,7 @@
                 margin-top: 15%;
             }
         }
+
 
     </style>
 </head>
@@ -110,7 +115,7 @@
         </div>
 	</div>
     <script>
-    	$(function(){
+    $(function(){
         $(document).ready(function(){
                 ItemList = getItems('keys');
                 displayItems(ItemList);
@@ -136,32 +141,17 @@
                 return false;
             }
 		});
-		$("ul").delegate('li','click touchstart',function(event){
+		$("ul").delegate('a.edit','click touchstart',function(event){
             console.log("inside edit");
             index = $("li").index(this.closest("li"));
             console.log(index);
             var parent = ItemList[index];
             console.log(parent);
             $("#editArea").val(parent);
-            if(!($('#editPop').modal('show'))){
-                $('#editPop').modal('show');
-            }
             console.log($("#editArea").val());
             event.preventDefault();
 
 		});
-        $("li").delegate('a.edit','click touchstart', function(event){
-            index = $("li").index(this.closest("li"));
-            console.log(index);
-            var parent = ItemList[index];
-            console.log(parent);
-            $("#editArea").val(parent);
-            if(($('#editPop').modal('show'))){
-                $('#editPop').modal('show');
-            }
-            console.log($("#editArea").val());
-            event.preventDefault();
-        });
 
         $("#saveEdit").on('click touchstart', function(event){
             console.log("inside save");
@@ -204,9 +194,12 @@
             $('li').remove();
             if(arrayItems.length > 0){
                 for(var i=0; i<arrayItems.length;i++){
-                    $("#toDoItemList").append('<li class="list list-group-item"><a href="#" class="edit">'+ arrayItems[i] +
-                        '</a><a href="#" class="close"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a></li>');
-                   
+                    $("#toDoItemList").append('<li class="list list-group-item">'+
+                        '<a href="#" data-toggle="modal" data-target="#editPop" '+
+                        'class="edit"><span class="glyphicon glyphicon-edit" '+
+                        'aria-hidden="true"></span></a>'+ arrayItems[i] +
+                        '<a href="#" class="close"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a>'+
+                        '</li>');
                     }
                 }
                 else {
