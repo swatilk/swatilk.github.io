@@ -1,215 +1,76 @@
-
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html>                           
 <head>
-    <title>To-Do List</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="stylesheet" href="https://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css"/> -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="style.css">
-
-    <!--<script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <style>
-    	
-        
-        body {
-            width: auto;
-            height: auto;
-            font-family:  "Helvetica Neue", Helvetica, Arial, sans-serif
-        }
-        form {
-            margin-right: 30%;
-            margin-left: 30%;
-        }
-        ul{
-            list-style-type: none;
-        }
-
-        li:hover > .edit {
-            background-color: #337ab7;
-            color: #fff;
-        }
-        li:hover > .close{
-            background-color: #337ab7;
-            color: #fff;
-        }
-
-        li:hover {
-            background-color: #337ab7;
-            color: #fff;
-        }
-
-        a.edit:hover {
-            text-decoration: none;
-        }
-        a.close {
-            float: right;
-            color: #337ab7;
-        }
-        a.edit {
-            float: left;
-            margin-right: 5%;
-        }
-        a {
-         
-            text-decoration: none;
-        }
-        textarea {
-        	width:80%;
-        }
-    
-        .listDiv{
-            margin-right: 25%;
-            margin-left: 25%;
-        }
-        @media (max-width: 350px){
-            #addItem {
-                width: 48px;
-                height: 48px;
-                margin-top: 15%;
-            }
-        }
-
-
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Swati's Resume</title>
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/jQuery.js"></script>
+  <script src="js/helper.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
+  <script type="text/javascript" src="js/Chart.js"></script>
 </head>
 <body>
-	<div class="row" id="index">
-		<h1 class="text-center">To-Do List</h1>
-		<div class="listDiv col-sm-6">
-			<ul id="toDoItemList" class="list-group"></ul>
-		</div>
-		<form action="#"  class="form-horizontal" method="post" id="listForm">
-            <div class="form-group">
-                <label for="newItem" class="col-sm-4 control-label">Enter to-do Item</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control"placeholder="eg: Buy Milk" id="newItem"/>
-                </div>
-            </div>
-             <div class="form-group">
-                <div class="subBtn col-sm-offset-4 col-sm-8">    <button type="submit" id="addItem" class="btn btn-primary">Add</button>
-                </div>
-            </div>
-        </form>
-
-        <div class="modal fade" id="editPop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Edit</h4>
-                    </div>
-                    <div class="modal-body">
-                    <textarea autofocus="autofocus" id="editArea"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveEdit">Save changes
-                        </button>
-                    </div>
-                </div>
-            </div>
+  <div id="dropDown-nav" class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu" role="menu"></ul>
+  </div>
+  <div class="container">
+    <nav id="main-nav">
+        <ul class="nav-list"></ul>
+    </nav>
+    <div class="row">
+      <div id="header" class="col-sm-8 col-sm-offset-2 text-center">
+      </div> 
+    </div>
+    <div style="clear: both;"></div>
+    <div>
+      <div class="row">
+        <div id="topContacts" class="col-sm-8 col-sm-offset-4">
+            <ul class="contact-list"></ul>
         </div>
-	</div>
-    <script>
-    $(function(){
-        $(document).ready(function(){
-                ItemList = getItems('keys');
-                displayItems(ItemList);
-        });
-		var item = $("#newItem"),
-            index;
-        //Add to-do item to the list
-		$("#addItem").on('click touchstart', function(event){
-            if(item.val() != ''){
-                console.log("if",item.val());
-                ItemList.push(item.val());
-                item.val('');
-                displayItems(ItemList);
-                populateStorage('keys', ItemList);
-                event.preventDefault();
-                return false;
-            }
-            else{
-                console.log("else",item.val());
-                alert("Please enter a value");
-                item.val('');
-                event.preventDefault();
-                return false;
-            }
-		});
-		$("ul").delegate('a.edit','click touchstart',function(event){
-            console.log("inside edit");
-            index = $("li").index(this.closest("li"));
-            console.log(index);
-            var parent = ItemList[index];
-            console.log(parent);
-            $("#editArea").val(parent);
-            console.log($("#editArea").val());
-            event.preventDefault();
-
-		});
-
-        $("#saveEdit").on('click touchstart', function(event){
-            console.log("inside save");
-                ItemList[index] = $("#editArea").val();
-                displayItems(ItemList);
-                populateStorage('keys', ItemList);
-                $('#editPop').modal('hide');
-                event.preventDefault();
-        });
-
-
-        $('#editPop').on('shown.bs.modal', function () {
-            $('#editArea').focus()
-        })
-
-        //delete a list item
-        $("#toDoItemList").delegate('a.close','tap click',function(event){
-                if($(this).closest("li").hasClass('list')){
-                    index = $("li").index(this.closest("li"));
-                    this.closest("li").remove("li");
-                    ItemList.splice(index, 1);
-                    populateStorage('keys', ItemList);
-                    event.preventDefault();
-                    return false;
-                }
-                event.preventDefault();
-                return false;
-        });
-        //retrieve the array of items from local storage
-        function getItems(key){
-            if(localStorage[key]){
-                return JSON.parse(localStorage[key]);
-            }
-            else {
-                return [ ];
-            }
-        }
-        //display the to-do items
-        function displayItems(arrayItems){
-            $('li').remove();
-            if(arrayItems.length > 0){
-                for(var i=0; i<arrayItems.length;i++){
-                    $("#toDoItemList").append('<li class="list list-group-item">'+
-                        '<a href="#" data-toggle="modal" data-target="#editPop" '+
-                        'class="edit"><span class="glyphicon glyphicon-edit" '+
-                        'aria-hidden="true"></span></a>'+ arrayItems[i] +
-                        '<a href="#" class="close"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a>'+
-                        '</li>');
-                    }
-                }
-                else {
-                    return;
-                }
-        }
-		function populateStorage(ind, setItems){
-            localStorage[ind] = JSON.stringify(setItems);
-         }
-    });
-    </script>
+      </div>
+      <div class="row">
+        <div  id="workExperience" class="col-sm-8 col-sm-offset-4">
+          <i class="fa fa-briefcase fa-2x"></i>
+          <h2>Work Experience</h2>
+        </div>
+      </div>
+      <div id="skillsRow" class="row">
+        <div id ="skills" class="col-sm-8 col-sm-offset-4"> 
+          <canvas id="skillsCanvas" width="400px" height="300px">
+          </canvas>
+        </div>
+      </div>
+      <div class="row">
+        <div id="projects" class="col-sm-8 col-sm-offset-4">
+          <i class="fa fa-flask fa-2x"></i>
+          <h2>Projects</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div id="education" class="col-sm-8 col-sm-offset-4">
+          <i class="fa fa-graduation-cap fa-2x"></i>
+          <h2>Education</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div id="interests" class="col-sm-8 col-sm-offset-4">
+          <i class="fa fa-paint-brush fa-2x"></i>
+          <h2>Interests and Hobbies</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div id="map-div" class="col-sm-8 col-sm-offset-4"></div>
+      </div>
+    </div>
+  </div>
+  <script src="js/resumeBuilder.js"></script>
 </body>
 </html>
