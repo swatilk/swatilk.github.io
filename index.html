@@ -1,76 +1,113 @@
-<!DOCTYPE html>                           
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Swati's Resume</title>
-  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <script src="js/jQuery.js"></script>
-  <script src="js/helper.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
-  <script type="text/javascript" src="js/Chart.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Swati's Portfolio Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Dancing+Script' rel='stylesheet' type='text/css'>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
-  <div id="dropDown-nav" class="dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenu" role="menu"></ul>
-  </div>
-  <div class="container">
-    <nav id="main-nav">
-        <ul class="nav-list"></ul>
+  <header class="logo row" role="navigation">
+    <div class="initials">
+      S K
+    </div>
+     <nav id="nav">
+      <ul class="nav-list">
+        <li class="list-item"><a href="#">Home</a></li>
+        <li class="list-item"><a href="#portfolio">Portfolio</a></li>
+        <li class="list-item"><a href="#about">About</a></li>
+        <li class="list-item"><a href="#contact">Contact</a></li>
+      </ul>
     </nav>
-    <div class="row">
-      <div id="header" class="col-sm-8 col-sm-offset-2 text-center">
-      </div> 
+  </header>
+  <div id="home" role="main" class="container-fluid row">
+    <div role="main" class="main-content">
+      <p id="nameHead">Swati Kamtar</p>
+      <span>Front End Web Developer</span>
+      <div class="social-icons">
+        <a href="https://github.com/swatilk" target="_blank"><i class="fa fa-github fa-3x" aria-hidden="true"></i></a>
+        <a href="https://linkedin.com/in/swatilk"
+        target="_blank"><i class="fa fa-linkedin-square fa-3x" aria-hidden="true"></i></a>
+        <a href="mailto:kamtar.swati@gmail.com"><i class="fa fa-envelope-square fa-3x" aria-hidden="true"></i></a>
+      </div>
+
+
+
+
     </div>
-    <div style="clear: both;"></div>
+
+  </div>
+  <div id="portfolio">
+    <h3>My Portfolio</h3>
+      <section class="row portfolio-images">
+        <div class="portfolio-item">
+          <a href="https://github.com/swatilk/classic-frogger-arcade-game" target="_blank" class="img-size img-space">
+            <img src="images/classic-frogger-arcade-game.png" class="img-responsive img-size">
+            <p>Classic arcade game developed using HTML 5 canvas animation</p>
+          </a>
+        </div>
+        <div class="portfolio-item">
+          <a href="https://github.com/swatilk/portfolio-site" target="_blank" class="img-size img-space">
+            <img src="images/portfolio-site.png" class="img-responsive img-size">
+            <p>Porfolio site example</p>
+          </a>
+        </div>
+        <div class="portfolio-item">
+          <a href="https://github.com/swatilk/frontend-nanodegree-feedreader" target="_blank" class="img-size img-space">
+            <img src="images/Feedreader.png" class="img-responsive img-size">
+            <p>Jasmine test cases for a feedreader app</p>
+          </a>
+        </div>
+      <!--</section>
+      <section class="row second portfolio-images">-->
+        <div class="portfolio-item">
+          <a href="https://github.com/swatilk/stopwatch" target="_blank" class="img-size img-space">
+            <img src="images/stopwatch-screenshot.png" class="img-responsive img-size">
+            <p>Stopwatch app displaying both forward and backward running timers</p>
+          </a>
+        </div>
+        <div class="portfolio-item">
+          <a href="https://github.com/swatilk/local-storage-to-do-list" target="_blank" class="img-size img-space">
+            <img src="images/To-Do.png" class="img-responsive img-size">
+            <p>To do list app using local storage of the device</p>
+          </a>
+        </div>
+        <div class="portfolio-item">
+          <a href="https://github.com/swatilk/neighborhood-map" target="_blank" class="img-size img-space">
+            <img src="images/neighborhood-map.png" class="img-responsive img-size">
+            <p>Neighborhood Map to display restaurants in the surroundings</p>
+          </a>
+        </div>
+      </section>
+  </div>
+  <div id="about">
     <div>
-      <div class="row">
-        <div id="topContacts" class="col-sm-8 col-sm-offset-4">
-            <ul class="contact-list"></ul>
-        </div>
-      </div>
-      <div class="row">
-        <div  id="workExperience" class="col-sm-8 col-sm-offset-4">
-          <i class="fa fa-briefcase fa-2x"></i>
-          <h2>Work Experience</h2>
-        </div>
-      </div>
-      <div id="skillsRow" class="row">
-        <div id ="skills" class="col-sm-8 col-sm-offset-4"> 
-          <canvas id="skillsCanvas" width="400px" height="300px">
-          </canvas>
-        </div>
-      </div>
-      <div class="row">
-        <div id="projects" class="col-sm-8 col-sm-offset-4">
-          <i class="fa fa-flask fa-2x"></i>
-          <h2>Projects</h2>
-        </div>
-      </div>
-      <div class="row">
-        <div id="education" class="col-sm-8 col-sm-offset-4">
-          <i class="fa fa-graduation-cap fa-2x"></i>
-          <h2>Education</h2>
-        </div>
-      </div>
-      <div class="row">
-        <div id="interests" class="col-sm-8 col-sm-offset-4">
-          <i class="fa fa-paint-brush fa-2x"></i>
-          <h2>Interests and Hobbies</h2>
-        </div>
-      </div>
-      <div class="row">
-        <div id="map-div" class="col-sm-8 col-sm-offset-4"></div>
-      </div>
+      <h3>About me...</h3>
+      <p>
+        I am an enthusiastic front end web developer inspired by amazing things that can be done on web. I develop projects and implement new concepts to ensure learning. I love to learn.
+      </p>
+      <p>
+        Another other thing that excites me is travelling. I love to travel to various places, learn its history, culture and anything unique about it. I enjoy cooking, biking with my husband and taking walks with him.
+      </p>
     </div>
   </div>
-  <script src="js/resumeBuilder.js"></script>
+  <div id="contact">
+    <div>
+      <h3>Contact me</h3>
+      <p>
+        You can contact me via email, id is kamtar.swati@gmail.com
+      </p>
+    </div>
+  </div>
+  <footer>
+    <p>Developed by Swati Kamtar 2016</p>
+  </footer>
+    <script src="js/script.js"></script>
 </body>
 </html>
+

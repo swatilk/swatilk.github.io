@@ -1,317 +1,255 @@
-/*font family*/
+/*header {
+  background: url(./images/indian-design.jpg) repeat;
+}*/
+/*jQuery .addClass('animated bounce') Animate.css*/
 body {
-  font-family: 'PT Sans', sans-serif;
-  font-weight: 200;
-  font-size: 16px;
+  margin: 0px;
+  font-family: 'Muli', sans-serif;
+  background: #d2d0d2;
 }
 
-h1,h2,h3,h4,h5,h6 {
-  font-weight: 500;
-  text-transform: uppercase;
+#menu-box {
+  width: 40px;
+  height: 40px;
+  background-color: #6facff;
+  -webkit-border-radius: 10%;
+      border-radius: 10%;
+  margin-bottom: 2em;
 }
 
-#name {
-  font-weight: bolder;
-  font-size: 45px;
-  background-color: #337ab7;
-  color: #ffffff;
-  padding: 5px 17px;
-  border-radius: 3px;
-  display: inline-block;
-  text-align: center;
-  border-left: solid #f7464a; 
-  border-right: solid #46bfbd;
-}
-
-.role {
-  font-size: 24px;
-  color: #337ab7;
-  display: block;
-}
-
-#header, #workExperience, #education, #skillsCanvas, #projects, #map-div, #topContacts{
-  margin-bottom: 2%;
-  margin-top: 2.5%;
-}
-
-#topContacts ul{
-  margin-top: 2%;
-}
-
-#topContacts ul li {
-  display: block;
-  text-decoration: none;
-  position: absolute;
-  top: 50%;
-}
-
-#topContacts .contact-item {
-  display: block;
-  text-decoration: none;
-  border-bottom: solid;
-  border-width: 1px;
-  border-color: #afafaf;
-}
-
-#topContacts .contact-item i {
-  margin-right: 2%;
-}
-
-#topContacts .contact-item span {
-  margin-left: 2%;
-}
-
-
-hr {
-  border-width: 1px;
-  border-color: #afafaf;
-}
-
-#main-nav {
-  top: 25%;
-  bottom:70%;
+.logo {
+  /*background-color: #ea2f00;*/
+  width: 100%;
+  padding: 0.5%;
+  background: #382604;
+  height: 3em;
   position: fixed;
-  left:50px;
-  z-index: 999;
-  font-size: 18px;
-  width:15%;
-}
-  
-#main-nav ul li{
-  list-style-type: square;
-  margin-bottom: 10%;
-  word-wrap: break-word;
+  opacity: 1;
+  display: flex;
 }
 
-#skillsCanvas {
-  float: left;
+nav {
+  position: absolute;
+  display: flex;
+  margin-right: 90px;
+}
+.nav-list {
+  display: flex;
+  position: fixed;
 }
 
-/*to display headings and icons on the same line */
-#workExperience h2,#projects h2,#education h2,#lets-connect h2,#skills h2, em h4, #topContacts h2, #interests h2 {
-  display: inline;
-  margin-bottom: 5em;
-  margin-top: 2em;
-  border-bottom: solid;
-  border-width: 2px;
-  border-color: #000000;
-  margin-left: 3%;
+.list-item {
+  width: 25%;
+  text-align: center;
+
 }
 
-#header,#workExperience,#skillsCanvas,#projects,#education,#map-div, #interests {
-  padding-left: 15px;
-  padding-right: 15px;
+.list-item a {
+  /*color: #dddddd;*/
+  text-decoration: none;
+  font-size: 1.2em;
+  margin-right: 1em;
+  color: #d2d0d2;
+
 }
 
-#map-div h2 {
-  display: inline;
-  margin-bottom: 2em;
-  margin-top: 2em;
-  margin-left: 3%;
-  border-bottom: solid 2px;
-  font-family: 'PT Sans', sans-serif;  
-  
+.list-item a:hover{
+  color: #ffffff;
 }
 
-#skills h2 {
-  display: inline;
-  margin-bottom: 2em;
-  margin-top: 2em;
-  margin-left: 3%;
+.list-item a:active {
+  color: #ffffff;
 }
 
-/* margin for the headings*/
-#projects,#education,#lets-connect,#map-div, #skills {
-  margin-top: 2em;
+.list-item {
+  list-style-type: none;
 }
 
-.work-title, .project-title, .school-name, .online-name {
-  text-transform: capitalize;
-  font-size: 24px;
-}
-
-.work-employer {
-  font-size: 18px;
-}
-.work-employer, .project-dates, .school-date, .online-date {
-  color: #337ab7;
-}
-
-#skills {
-  max-width: 50%;
-}
-
-/*styling the project images*/
-.project-image {
-  border-style: solid;
-  border-width: 1px;
-  border-color: #afafaf;
-}
-
-/*display title and icon on same line for "online classes"*/
-#education h3 {
-  display: inline;
-}
-
-/* display the link the  next line of the heading "online classes"*/
-#education a {
-  display: block;
-}
-
-/*media queries */
-@media only screen and (min-width:1024px){
-  #map {
-    display: block;
-    height: 100%;
-    margin: 0 2%;
-  }
-
-  #map-div {
-    height: 400px;
-    padding-bottom: 5%;
-  }
-
-  #dropDown-nav {
-    display: none;
-  }
-}
-
-@media only screen and (min-width: 901px) and (max-width: 1023px){
-  #map {
-  display: block;
-  height: 100%;
-  margin: 0 2%;
-  }
-
-  #map-div {
+#home, #portfolio{ width: 100%; }
+#home{
+  /*background:url('../images/background-image.jpg') 50% 0 no-repeat fixed;*/
+  background:url('../images/background-image.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  color: #fff;
   height: 400px;
-  padding-bottom: 5%;
-  }
+  margin: 0;
+  padding: 200px 0 260px 0;
+}
+#portfolio{
+  /*background-color: #fff;*/
+  color: #382604;
+  /*height: 800px;*/
+  margin: 0 auto;
+  overflow: hidden;
+  /*padding: 200px 0;*/
+  text-align: center;
+  font-size: 1.5em;
+}
+#about{
+  background: url(../images/about-background-image.jpeg) 50% 0 no-repeat fixed;
+  color: #fff;
+  height: 600px;
+  padding: 170px 0 0 0;
+  background-size: cover;
+  text-align: center;
+  font-size: 1.5em;
+  color: #d2d0d2;
 
-  #dropDown-nav {
-    display: none;
-  }
+}
+#contact{
+  background: url(../images/contact-background-2.jpeg) 50% 0 no-repeat fixed;
+  background-color: #fff;
+  color: #333333;
+  height: 600px;
+  padding: 200px 0;
+  background-size: cover;
+  text-align: center;
+  font-size: 1.5em;
+
+
 
 }
 
-@media only screen and (min-width: 751px) and (max-width: 900px){
-  #map {
-    display: block;
-    height: 100%;
-    margin: 0 2%;
-  }
-
-  #map-div {
-    height: 400px;
-    max-width: 80%;
-    padding-bottom: 5%;
-  }
-
+.portfolio-images {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 5%;
 }
-@media only screen and (max-width: 900px){
-  #main-nav{
-    display: none;
-  }
 
-  #dropDown-nav{
-    top: 10%;
-    float: left;
-    width: 100%;
-    position: fixed;
-  }
-
-  #map {
-    display: block;
-    height: 100%;
-    margin: 0 2%;
-  }
-
-  #map-div {
-    height: 400px;
-    max-width: 80%;
-    padding-bottom: 5%;
-  }
-
+.portfolio-images a {
+  /*width: 29%;
+  height: 12%;
+  border: 0.2em solid #a6a6a6;*/
+  display: inline;
+  margin: 0.5em;
+  margin-left: 1.5%;
+  text-decoration: none;
 }
-@media only screen and (max-width:750px){
-  body {
-    font-family: 'PT Sans', sans-serif;
-    font-weight: 200;
-    font-size: 18px;
-  }
-  
-  #map {
-    display: block;
-    height: 100%;
-    margin: 0 2%;
-  }
 
-  #map-div {
-    height: 350px;
-    max-width: 80%;
-    padding-bottom: 5%;
-  }
-  #dropDown-nav{
-    top: 10%;
-    float: left;
-    width: 100%;
-    position: fixed;
-  }
+.portfolio-images img {
+  -webkit-transition:opacity 0.26s ease-out;
+    -moz-transition:opacity 0.26s ease-out;
+    -ms-transition:opacity 0.26s ease-out;
+    -o-transition:opacity 0.26s ease-out;
+    transition:opacity 0.26s ease-out;
+    transition:500ms;
+}
+
+.portfolio-images a:hover img {
+  opacity: 0.4;
+}
+
+.portfolio-images a:hover p {
+  opacity: 1;
+}
+
+.portfolio-images a:hover a{
+  /*opacity:1;*/
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
+    z-index:2;
+    position:relative;
+    transition:500ms;
+}
+
+.portfolio-images p {
+    /*position:absolute;*/
+    opacity:0;
+    top:50%;
+    left:-8%;
+    padding:2em;
+    text-align:center;
+    font-size:0.8em;
+    line-height:20px;
+    margin-top:-110px;
+    z-index:3;
+    background:rgba(255,255,255, 0);
+    transition:1s;
 
 }
 
-@media only screen and (max-width:440px){
-  body {
-    font-family: 'PT Sans', sans-serif;
-    font-weight: 200;
-    font-size: 20px;
-  }
-
-  #map {
-    display: block;
-    height: 100%;
-    margin: 0 2%;
-  }
-
-  #map-div {
-    height: 225px;
-    padding-bottom: 5%;
-    max-width: 80%;
-  }
-
-  #skills {
-    max-width: 80%;
-  }
-  #dropDown-nav{
-    top: 10%;
-    float: left;
-    width: 100%;
-    position: fixed;
-  }
+.img-size {
+  /*width: 19em;
+  height: 14em;*/
+  width: 300px;
+  height: 300px;
 
 }
-@media only screen and (max-width: 600px){
-  #skills{
-    max-width: 80%;
-  }
+
+.img-space {
+  margin-left: 1.5%;
+}
+
+.fa {
+  color: #382604;
+  size: 5em;
+}
+
+.fa-github {
+  size: 5em;
+}
+
+#nameHead {
+  font-family: 'Dancing Script', cursive;
+  color: #382604;
+  font-size: 6em;
+  margin-top: 0px;
+  height: 0.2em;
+}
+
+#home span {
+  color: #382604;
+  font-size: 1.2em;
+}
+
+#home i {
+  margin-left: 1em;
+}
+
+.main-content {
+  margin-left: 1em;
+}
+
+.social-icons {
+  margin-top: 10em;
+}
+
+footer {
+  background: #382604;
+  height: 7em;
+  color: #d2d0d2;
+  font-size: 0.8em;
+  text-align: center;
+  padding-top: 5em;
 
 }
-@media only screen and (max-width: 767px){
-  #dropDown-nav {
-    display: none;
-  }
-  #main-nav{
-    display: none;
-  }
-  #map {
-    display: block;
-    height: 100%;
-    margin: 0 2%;
-  }
-  #map-div {
-    height: 350;
-    max-width: 80%;
-    padding-bottom: 5%;
-  }
 
+.portfolio-images div {
+  width: 33%;
 }
+
+.initials {
+  background: #fcd849;
+  color: #382604;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3em;
+  height: 3em;
+  font-size: 2.5em;
+  border-radius: 50%;
+}
+
+.portfolio-item {
+  margin-bottom: 4em;
+}
+
