@@ -21,7 +21,6 @@ window.onload = function(){
 	console.log($( window ).scrollTop());
 	$( window ).scroll(function() {
 		if($( window ).scrollTop() === 0){
-			console.log("hi");
 			$( ".initials" ).css( "font-size", "2.5em" );
 		}
 		else{
